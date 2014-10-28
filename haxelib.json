@@ -1,0 +1,13 @@
+{
+  "name": "p2js",
+  "license": "MIT",
+  "tags": ["js","haxe","pixi","extern","web","physics"],
+  "description": "Externs of p2.js for Haxe - A Javascript 2D physics library.",
+  "contributors": ["adireddy"],
+  "releasenote": "initial release",
+  "version": "0.0.2",
+  "url": "https://github.com/adireddy/haxe-p2",
+  "dependencies": {
+
+  }
+}
