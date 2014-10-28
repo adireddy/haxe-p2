@@ -9,5 +9,7 @@ extern class Body {
 
     var angle:Float;
 
+    var damping:Float;
+
     var position:Array<Dynamic>;
 }
