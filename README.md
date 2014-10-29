@@ -12,7 +12,13 @@ haxelib install p2js
 ```
 <u>Please note that this is an alpha release and the development is still in progress.</u>
 
+### Usage ###
+
 ```haxe
+
+import pixi.display.Stage;
+import pixi.primitives.Graphics;
+import pixi.display.DisplayObjectContainer;
 
 import p2.shapes.Circle;
 import p2.shapes.Plane;
@@ -20,10 +26,10 @@ import p2.objects.Body;
 import p2.shapes.Rectangle;
 import p2.world.World;
 
-import pixi.primitives.Graphics;
-import pixi.display.DisplayObjectContainer;
-
 class Main {
+
+	var _renderer:Dynamic;
+    var _stage:Stage;
 
     var _p2World:World;
     var _p2container:DisplayObjectContainer;
@@ -38,6 +44,10 @@ class Main {
     var _sensorBody:Body;
 
     public function new() {
+        _stage = new Stage(0x00FF00);
+		_renderer = Detector.autoDetectRenderer(800, 600);
+		Browser.document.body.appendChild(_renderer.view);
+        		
 		_p2World = new World({ gravity:[0, 0] });
         
         var boxShape:Rectangle = new Rectangle(2, 1);
@@ -80,13 +90,17 @@ class Main {
         _p2Circle.beginFill(0x003366);
         _p2Circle.drawCircle(0, 0, _circleShape.radius);
         _p2container.addChild(_p2Circle);
+        
+        Browser.window.requestAnimationFrame(cast animate);
     }
-
-    public function update(elapsedTime:Float) {
-        _p2World.step(1/60);
-        _p2graphics.position.x = _boxBody.position[0];
-        _p2graphics.position.y = _boxBody.position[1];
-        _p2graphics.rotation = _boxBody.angle;
+    
+    function animate() {
+		Browser.window.requestAnimationFrame(cast animate);
+		_p2World.step(1/60);
+		_p2graphics.position.x = _boxBody.position[0];
+		_p2graphics.position.y = _boxBody.position[1];
+		_p2graphics.rotation = _boxBody.angle;
+		_renderer.render(_stage);
     }
 }
 ```
