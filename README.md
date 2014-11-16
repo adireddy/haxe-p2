@@ -10,7 +10,7 @@ Externs of p2.js for Haxe - A Javascript 2D physics library.
 ```haxe
 haxelib install p2js
 ```
-Please note that this is an alpha release and the development is still in progress.
+Please note that this is an alpha release and the development/testing is still in progress.
 
 ### Usage ###
 
