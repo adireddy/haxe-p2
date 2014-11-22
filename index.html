@@ -1,0 +1,158 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Haxe-p2 by adireddy</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Haxe-p2</h1>
+        <p>Externs of p2.js for Haxe</p>
+        <p class="view"><a href="https://github.com/adireddy/haxe-p2">View the Project on GitHub <small>adireddy/haxe-p2</small></a></p>
+        <ul>
+          <li><a href="https://github.com/adireddy/haxe-p2/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/adireddy/haxe-p2/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/adireddy/haxe-p2">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>
+<a id="haxe-p2" class="anchor" href="#haxe-p2" aria-hidden="true"><span class="octicon octicon-link"></span></a>haxe-p2</h1>
+
+<p><img src="https://raw.githubusercontent.com/adireddy/haxe-p2/master/logo.png" alt="haxe p2 logo"></p>
+
+<p>Externs of p2.js for Haxe - A Javascript 2D physics library.</p>
+
+<h3>
+<a id="installation" class="anchor" href="#installation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installation</h3>
+
+<div class="highlight highlight-haxe"><pre>haxelib install p2js</pre></div>
+
+<p>Please note that this is an alpha release and the development/testing is still in progress.</p>
+
+<h3>
+<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span class="octicon octicon-link"></span></a>Usage</h3>
+
+<div class="highlight highlight-haxe"><pre>
+<span class="pl-st">import</span> <span class="pl-en">pixi.display.</span><span class="pl-en">Stage</span>;
+<span class="pl-st">import</span> <span class="pl-en">pixi.primitives.</span><span class="pl-en">Graphics</span>;
+<span class="pl-st">import</span> <span class="pl-en">pixi.display.</span><span class="pl-en">DisplayObjectContainer</span>;
+
+<span class="pl-st">import</span> <span class="pl-en">p2.shapes.</span><span class="pl-en">Circle</span>;
+<span class="pl-st">import</span> <span class="pl-en">p2.shapes.</span><span class="pl-en">Plane</span>;
+<span class="pl-st">import</span> <span class="pl-en">p2.objects.</span><span class="pl-en">Body</span>;
+<span class="pl-st">import</span> <span class="pl-en">p2.shapes.</span><span class="pl-en">Rectangle</span>;
+<span class="pl-st">import</span> <span class="pl-en">p2.world.</span><span class="pl-en">World</span>;
+
+<span class="pl-st">class</span> <span class="pl-en">Main</span> {
+
+    <span class="pl-k">var</span> _renderer:<span class="pl-s3">Dynamic</span>;
+    <span class="pl-k">var</span> _stage:<span class="pl-en">Stage</span>;
+
+    <span class="pl-k">var</span> _p2World:<span class="pl-en">World</span>;
+    <span class="pl-k">var</span> _p2container:<span class="pl-en">DisplayObjectContainer</span>;
+    <span class="pl-k">var</span> _p2graphics:<span class="pl-en">Graphics</span>;
+    <span class="pl-k">var</span> _boxBody:<span class="pl-en">Body</span>;
+
+    <span class="pl-k">var</span> _p2Circle:<span class="pl-en">Graphics</span>;
+    <span class="pl-k">var</span> _circleShape:<span class="pl-en">Circle</span>;
+    <span class="pl-k">var</span> _p2Sensor:<span class="pl-en">Graphics</span>;
+    <span class="pl-k">var</span> _sensorShape:<span class="pl-en">Circle</span>;
+    <span class="pl-k">var</span> _circleBody:<span class="pl-en">Body</span>;
+    <span class="pl-k">var</span> _sensorBody:<span class="pl-en">Body</span>;
+
+    <span class="pl-s">public</span> <span class="pl-k">function</span> <span class="pl-en">new</span>() {
+        _stage <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-st">Stage</span>(<span class="pl-c1">0x00FF00</span>);
+        _renderer <span class="pl-k">=</span> <span class="pl-en">Detector</span>.autoDetectRenderer(<span class="pl-c1">800</span>, <span class="pl-c1">600</span>);
+        <span class="pl-en">Browser</span>.document.body.appendChild(_renderer.view);
+
+        _p2World <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-st">World</span>({ gravity:[<span class="pl-c1">0</span>, <span class="pl-c1">0</span>] });
+
+        <span class="pl-k">var</span> boxShape:<span class="pl-en">Rectangle</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-st">Rectangle</span>(<span class="pl-c1">2</span>, <span class="pl-c1">1</span>);
+        _boxBody <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-st">Body</span>({
+            mass: <span class="pl-c1">1</span>,
+            position:[<span class="pl-c1">0</span>, <span class="pl-c1">2</span>],
+            angularVelocity: <span class="pl-c1">1</span>
+        });
+
+        _boxBody.addShape(boxShape);
+        _p2World.addBody(_boxBody);
+
+        <span class="pl-k">var</span> planeShape:<span class="pl-en">Plane</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-st">Plane</span>();
+        <span class="pl-k">var</span> planeBody:<span class="pl-en">Body</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-st">Body</span>({ position:[<span class="pl-c1">0</span>, <span class="pl-k">-</span><span class="pl-c1">1</span>] });
+        planeBody.addShape(planeShape);
+        _p2World.addBody(planeBody);
+
+        <span class="pl-k">var</span> zoom:<span class="pl-s3">Int</span> <span class="pl-k">=</span> <span class="pl-c1">100</span>;
+
+        _p2container <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-st">DisplayObjectContainer</span>();
+        gameStage.addChild(_p2container);
+
+        _p2container.position.x <span class="pl-k">=</span> <span class="pl-en">StageProperties</span>.screenWidth <span class="pl-k">/</span> <span class="pl-c1">2</span>;
+        _p2container.position.y <span class="pl-k">=</span> <span class="pl-en">StageProperties</span>.screenHeight <span class="pl-k">/</span> <span class="pl-c1">2</span>;
+        _p2container.scale.x <span class="pl-k">=</span>  zoom;
+        _p2container.scale.y <span class="pl-k">=</span> <span class="pl-k">-</span>zoom;
+
+        _p2graphics <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-st">Graphics</span>();
+        _p2graphics.beginFill(<span class="pl-c1">0xff0000</span>);
+        _p2graphics.drawRect(<span class="pl-k">-</span>boxShape.width <span class="pl-k">/</span> <span class="pl-c1">2</span>, <span class="pl-k">-</span>boxShape.height <span class="pl-k">/</span> <span class="pl-c1">2</span>, boxShape.width, boxShape.height);
+        _p2container.addChild(_p2graphics);
+
+        _circleShape <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-st">Circle</span>(<span class="pl-c1">1</span>);
+        _circleBody <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-st">Body</span>({ mass: <span class="pl-c1">1</span> });
+        _circleBody.damping <span class="pl-k">=</span> <span class="pl-c1">0</span>;
+        _circleBody.addShape(_circleShape);
+        _p2World.addBody(_circleBody);
+
+        _p2Circle <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-st">Graphics</span>();
+        _p2Circle.beginFill(<span class="pl-c1">0x003366</span>);
+        _p2Circle.drawCircle(<span class="pl-c1">0</span>, <span class="pl-c1">0</span>, _circleShape.radius);
+        _p2container.addChild(_p2Circle);
+
+        <span class="pl-en">Browser</span>.window.requestAnimationFrame(<span class="pl-k">cast</span> animate);
+    }
+
+    <span class="pl-k">function</span> <span class="pl-en">animate</span>() {
+        <span class="pl-en">Browser</span>.window.requestAnimationFrame(<span class="pl-k">cast</span> animate);
+        _p2World.step(<span class="pl-c1">1</span><span class="pl-k">/</span><span class="pl-c1">60</span>);
+        _p2graphics.position.x <span class="pl-k">=</span> _boxBody.position[<span class="pl-c1">0</span>];
+        _p2graphics.position.y <span class="pl-k">=</span> _boxBody.position[<span class="pl-c1">1</span>];
+        _p2graphics.rotation <span class="pl-k">=</span> _boxBody.angle;
+        _renderer.render(_stage);
+    }
+}</pre></div>
+
+<p>This content is released under the <a href="http://opensource.org/licenses/MIT">MIT</a> License.</p>
+
+<p>p2.js is maintained by <a href="https://github.com/schteppe">schteppe</a>.</p>
+      </section>
+    </div>
+    <footer>
+      <p>Project maintained by <a href="https://github.com/adireddy">adireddy</a></p>
+      <p>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></p>
+    </footer>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+              <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-31531781-2");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
+  </body>
+</html>
