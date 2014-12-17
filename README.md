@@ -1,3 +1,8 @@
+### Note ###
+After evaluating a few other physics libraries, I am now in favour of [Nape](http://napephys.com) and it works well with pixi.js. [Click here](http://adireddy.github.io/2014/12/05/haxe-pixi-nape-demo/) for a quick demo and source code.
+
+I will not be actively maintaining these externs anymore, so if anyone is interested please [let me know](mailto:github@arm.rocks) and I will add them as collaborators.
+
 haxe-p2
 =======
 
