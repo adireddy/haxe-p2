@@ -1,6 +1,5 @@
 [![No Maintenance Intended](http://unmaintained.tech/badge.svg)](http://unmaintained.tech/)
-
-### Note ###
+=======
 After evaluating a few other physics libraries, I am now in favour of [Nape](http://napephys.com) and it works well with pixi.js. [Click here](http://adireddy.github.io/demos/pixi-haxe/nape.html) for a quick demo and [source code](https://github.com/pixijs/pixi-haxe/blob/dev/samples/nape/Main.hx).
 
 I will not be actively maintaining these externs anymore, so if anyone is interested please [let me know](mailto:adiinteractive@gmail.com) and I will add them as collaborators.
